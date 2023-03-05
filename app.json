@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "30e3644e-496a-4396-a527-c987aae2a07d"
+      }
+    },
+    "owner": "magicmirrorcreative"
   }
 }
