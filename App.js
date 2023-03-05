@@ -1,24 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
+import { Card } from 'react-native-paper';
 
 import ImageViewer from './components/ImageViewer';
 import Button from './components/Button';
+import Header from './components/HeaderBar';
+import HabitCard from './components/HabitCard';
 
 const PlaceholderImage = require('./assets/tesla.jpg');
 
 export default function App() {
   return (
-    <View style={styles.container}>
-          <Text style={styles.header}>Tesla</Text>
-          <View style={styles.imageContainger}>
-              <ImageViewer placeholderImageSource={PlaceholderImage} />
-          </View>
-          <View style={styles.footerContainer}>
-              <Button theme="primary" label="Choose a photo" />
-              <Button label="Use this photo" />
-          </View>
-      <StatusBar style="auto" />
-    </View>
+      <SafeAreaProvider>
+      <Header />
+        <View style={styles.container}>
+            <HabitCard
+                cardTitle="Programming"
+                cardSubTitle="5hrs per Week"
+            />
+            <HabitCard
+                cardTitle="Reading"
+                cardSubTitle="1hr per Week"
+            />
+            <HabitCard
+                cardTitle="Writing"
+                cardSubTitle="30min per Week"
+            />
+            <HabitCard
+                cardTitle="Biking"
+                cardSubTitle="5hrs per Week"
+            />
+            <StatusBar style="auto" />
+        </View>
+      </SafeAreaProvider>
   );
 }
 
@@ -31,9 +46,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#25292e',
-        alignItems: 'center',
-        justifyContent: 'center',
+        padding: 20,
     },
     imageContainer: {
         flex: 1,
