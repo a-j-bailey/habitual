@@ -2,10 +2,13 @@ import { Avatar, Button, Card, Text, IconButton } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-const HabitCard = ({ cardTitle, cardSubTitle }) => (
+const HabitCard = ({ cardTitle, cardSubTitle, onPress }) => (
     <Card
         style={styles.habitCard}
-        mode="outlined"
+        elevation={0}
+        onPress={() => onPress(
+            {sheetName: cardTitle}
+        )}
     >
         <Card.Title
             title={cardTitle}
@@ -19,8 +22,8 @@ const HabitCard = ({ cardTitle, cardSubTitle }) => (
 const styles = StyleSheet.create({
     habitCard: {
         marginBottom: 20,
+        backgroundColor: '#fff',
     }
 });
-
 
 export default HabitCard;
