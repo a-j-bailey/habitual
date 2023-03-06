@@ -1,0 +1,1 @@
+This is a simple habit tracking app built with expo.dev.
