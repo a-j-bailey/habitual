@@ -15,23 +15,29 @@ import HabitView from './components/HabitView';
 const sheetRef = React.createRef();
 
 export default function App() {
-    let curHabit = null;
+    const [curHabit, setCurHabit] = React.useState('');
+    
+    const createHabit = () => {
+        alert('new habit');
+    }
 
     const openSheet = ({sheetName}) => {
-//        curHabit = sheetName;
-        sheetRef.current.snapTo(0);
+        setCurHabit(sheetName);
+        sheetRef.current.snapTo(1);
     };
 
     const renderContent = () => (
         <HabitView
             sheetRef={sheetRef}
-            title={'curHabit'}
+            title={curHabit}
         />
     );
 
     return (
         <SafeAreaProvider>
-            <Header />
+            <Header
+                onPress={createHabit}
+            />
             <View style={styles.container}>
                 <HabitCard
                     cardTitle="Programming"
@@ -57,8 +63,9 @@ export default function App() {
             </View>
             <BottomSheet
                 ref={sheetRef}
-                snapPoints={[450, 300, 0]}
+                snapPoints={[800, 450, 0]}
                 borderRadius={10}
+                overdragResistanceFactor={10}
                 renderContent={renderContent}
             />
             
