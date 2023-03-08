@@ -11,26 +11,42 @@ import ImageViewer from './components/ImageViewer';
 import Header from './components/HeaderBar';
 import HabitCard from './components/HabitCard';
 import HabitView from './components/HabitView';
+import HabitForm from './components/HabitForm';
 
 const sheetRef = React.createRef();
 
 export default function App() {
+    const [newHabit, setNewHabit] = React.useState(false);
     const [curHabit, setCurHabit] = React.useState('');
     
     const createHabit = () => {
-        alert('new habit');
+        setNewHabit(true);
+        sheetRef.current.snapTo(2);
     }
 
     const openSheet = ({sheetName}) => {
+        setNewHabit(false);
         setCurHabit(sheetName);
         sheetRef.current.snapTo(1);
     };
 
     const renderContent = () => (
-        <HabitView
-            sheetRef={sheetRef}
-            title={curHabit}
-        />
+        <View style={{
+            backgroundColor: '#fff',
+            padding: 16,
+            height: 800,
+          }}
+        >
+            { newHabit ? (
+                <HabitForm />
+            ) : (
+                <HabitView
+                    sheetRef={sheetRef}
+                    title={curHabit}
+                />
+            )}
+        </View>
+        
     );
 
     return (
@@ -45,17 +61,17 @@ export default function App() {
                     onPress={openSheet}
                 />
                 <HabitCard
-                    cardTitle="Reading"
+                    cardTitle="Biking"
                     cardSubTitle="1hr per Week"
                     onPress={openSheet}
                 />
                 <HabitCard
-                    cardTitle="Writing"
+                    cardTitle="Medium Length Title"
                     cardSubTitle="30min per Week"
                     onPress={openSheet}
                 />
                 <HabitCard
-                    cardTitle="Biking"
+                    cardTitle="Some really long title that's sure to cause problems."
                     cardSubTitle="5hrs per Week"
                     onPress={openSheet}
                 />
@@ -63,7 +79,7 @@ export default function App() {
             </View>
             <BottomSheet
                 ref={sheetRef}
-                snapPoints={[800, 450, 0]}
+                snapPoints={[0, 450, 800]}
                 borderRadius={10}
                 overdragResistanceFactor={10}
                 renderContent={renderContent}

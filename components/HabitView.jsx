@@ -3,13 +3,7 @@ import { Text, Divider, IconButton } from 'react-native-paper';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const HabitView = ({sheetRef, title}) => (
-    <View
-      style={{
-        backgroundColor: '#fff',
-        padding: 16,
-        height: 800,
-      }}
-    >
+    <View>
         <View style={styles.headerContainer}>
             <View>
                 <Text variant="headlineLarge">{title}</Text>

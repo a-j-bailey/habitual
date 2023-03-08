@@ -1,10 +1,10 @@
 
 import { Appbar } from 'react-native-paper';
 
-const Header = () => (
+const Header = ({onPress}) => (
     <Appbar.Header mode="small">
         <Appbar.Content title="🕰️ Habitual" />
-        <Appbar.Action icon="plus" onPress={() => {}} />
+        <Appbar.Action icon="plus" onPress={() => onPress()} />
     </Appbar.Header>
 );
 
