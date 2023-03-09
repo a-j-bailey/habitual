@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, Button } from 'react-native';
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 import { Card } from 'react-native-paper';
 
@@ -54,7 +54,27 @@ export default function App() {
             <Header
                 onPress={createHabit}
             />
-            <View style={styles.container}>
+            <ScrollView style={styles.container} contentContainerStyle={{paddingBottom: 50}}>
+                <HabitCard
+                    cardTitle="Programming"
+                    cardSubTitle="5hrs per Week"
+                    onPress={openSheet}
+                />
+                <HabitCard
+                    cardTitle="Biking"
+                    cardSubTitle="1hr per Week"
+                    onPress={openSheet}
+                />
+                <HabitCard
+                    cardTitle="Medium Length Title"
+                    cardSubTitle="30min per Week"
+                    onPress={openSheet}
+                />
+                <HabitCard
+                    cardTitle="Some really long title that's sure to cause problems."
+                    cardSubTitle="5hrs per Week"
+                    onPress={openSheet}
+                />
                 <HabitCard
                     cardTitle="Programming"
                     cardSubTitle="5hrs per Week"
@@ -76,7 +96,7 @@ export default function App() {
                     onPress={openSheet}
                 />
                 <StatusBar style="auto" />
-            </View>
+            </ScrollView>
             <BottomSheet
                 ref={sheetRef}
                 snapPoints={[0, 450, 800]}
