@@ -16,6 +16,59 @@ import HabitForm from './components/HabitForm';
 const sheetRef = React.createRef();
 
 export default function App() {
+    
+    const dummyHabits = [
+        {
+            title: 'Biking',
+            time: {
+                hrs: 1,
+                min: 30,
+            },
+        },
+        {
+            title: 'Programming',
+            time: {
+                hrs: 5,
+                min: 0,
+            },
+        },
+        {
+            title: 'Medium Length Title',
+            time: {
+                hrs: 5,
+                min: 0,
+            },
+        },
+        {
+            title: "Super long title that's sure to break something.",
+            time: {
+                hrs: 5,
+                min: 0,
+            },
+        },
+        {
+            title: 'Drink Coffee',
+            time: {
+                hrs: 5,
+                min: 0,
+            },
+        },
+        {
+            title: 'Watch Ted Lasso',
+            time: {
+                hrs: 5,
+                min: 0,
+            },
+        },
+        {
+            title: 'Sleep',
+            time: {
+                hrs: 5,
+                min: 0,
+            },
+        },
+    ];
+    
     const [newHabit, setNewHabit] = React.useState(false);
     const [curHabit, setCurHabit] = React.useState('');
     
@@ -55,46 +108,13 @@ export default function App() {
                 onPress={createHabit}
             />
             <ScrollView style={styles.container} contentContainerStyle={{paddingBottom: 50}}>
-                <HabitCard
-                    cardTitle="Programming"
-                    cardSubTitle="5hrs per Week"
-                    onPress={openSheet}
-                />
-                <HabitCard
-                    cardTitle="Biking"
-                    cardSubTitle="1hr per Week"
-                    onPress={openSheet}
-                />
-                <HabitCard
-                    cardTitle="Medium Length Title"
-                    cardSubTitle="30min per Week"
-                    onPress={openSheet}
-                />
-                <HabitCard
-                    cardTitle="Some really long title that's sure to cause problems."
-                    cardSubTitle="5hrs per Week"
-                    onPress={openSheet}
-                />
-                <HabitCard
-                    cardTitle="Programming"
-                    cardSubTitle="5hrs per Week"
-                    onPress={openSheet}
-                />
-                <HabitCard
-                    cardTitle="Biking"
-                    cardSubTitle="1hr per Week"
-                    onPress={openSheet}
-                />
-                <HabitCard
-                    cardTitle="Medium Length Title"
-                    cardSubTitle="30min per Week"
-                    onPress={openSheet}
-                />
-                <HabitCard
-                    cardTitle="Some really long title that's sure to cause problems."
-                    cardSubTitle="5hrs per Week"
-                    onPress={openSheet}
-                />
+                {dummyHabits.map((habit) => {
+                    return <HabitCard
+                        cardTitle={habit.title}
+                        cardSubTitle={habit.time.hrs + 'hrs ' + habit.time.min + 'min per week.'}
+                        onPress={openSheet}
+                    />;
+                })}
                 <StatusBar style="auto" />
             </ScrollView>
             <BottomSheet
