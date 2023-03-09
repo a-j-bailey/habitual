@@ -1,5 +1,5 @@
 import { StyleSheet, View } from 'react-native';
-import { Text, Divider, IconButton } from 'react-native-paper';
+import { Text, Divider, IconButton, ProgressBar } from 'react-native-paper';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const HabitView = ({sheetRef, title}) => (
@@ -13,7 +13,7 @@ const HabitView = ({sheetRef, title}) => (
                 <IconButton icon="clock" onPress={() => {}} />
             </View>
         </View>
-        <Divider />
+        <ProgressBar progress={0.5} />
         <Text>Persistance is the key! Just keep working at it.</Text>
     </View>
     

@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Text, IconButton } from 'react-native-paper';
+import { Avatar, Button, Card, Text, IconButton, ProgressBar } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
@@ -16,6 +16,9 @@ const HabitCard = ({ cardTitle, cardSubTitle, onPress }) => (
             subtitle={cardSubTitle}
             right={(props) => <IconButton {...props} icon="clock" onPress={() => {}} />}
         />
+        <Card.Content>
+            <ProgressBar progress={0.5} />
+        </Card.Content>
     </Card>
 );
 
