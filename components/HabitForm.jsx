@@ -4,8 +4,6 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as React from 'react';
 
-
-
 function HabitForm() {
     const [title, setTitle] = React.useState('');
     const [hours, setHours] = React.useState('');
@@ -19,6 +17,15 @@ function HabitForm() {
         {label: 'Week', value: 'week'},
         {label: 'Month', value: 'month'}
     ]);
+    
+    const saveHabit = ({
+        title,
+        hours,
+        minutes,
+        frequency
+    }) => {
+        alert(title + '\n' + hours + '\n' + minutes + '\n' + frequency);
+    };
     
     return(
         <View style={{
@@ -86,15 +93,19 @@ function HabitForm() {
                             fontSize: 20,
                         }}
                         zIndex={100}
-                        onChangeValue={(value) => {alert(value)}}
-                        onSelectItem={(item) => {alert(item)}}
+                        onChangeValue={(value) => {setFrequency(value)}}
                     />
                 </View>
             </View>
             <View style={{
                 padding: 40,
             }}>
-                <Button mode="contained" onPress={() => alert(title + ' ' + hours + ' ' + minutes)} >
+                <Button mode="contained" onPress={() => saveHabit({
+                        title: title,
+                        hours: hours,
+                        minutes: minutes,
+                        frequency: frequency,
+                    })} >
                     CREATE
                 </Button>
             </View>
