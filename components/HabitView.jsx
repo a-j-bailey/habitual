@@ -26,7 +26,7 @@ const HabitView = ({sheetRef, habit, onDelete}) => (
                     [
                         {
                             text: 'Yes, Delete',
-                            onPress: () => onDelete,
+                            onPress: () => onDelete({id: habit.id}),
                         },
                         {
                             text: 'Cancel',

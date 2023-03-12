@@ -19,7 +19,7 @@ function useForceUpdate() {
 
 function Home({db}) {
     const [newHabit, setNewHabit] = React.useState(false);
-    const [curHabit, setCurHabit] = React.useState(null);
+    const [curHabit, setCurHabit] = React.useState({});
     const [forceUpdate, forceUpdateId] = useForceUpdate();
     
     const createHabit = () => {
@@ -46,13 +46,22 @@ function Home({db}) {
             forceUpdate
         );
         sheetRef.current.snapTo(0);
-        forceUpdate();
+    };
+    
+    const deleteHabit = ({ id }) => {
+        db.transaction(
+            (tx) => {
+                tx.executeSql(`DELETE FROM habits WHERE id = ?;`, [id]);
+            },
+            null,
+            forceUpdate
+        )
+        sheetRef.current.snapTo(0);
     };
 
     const openSheet = ({habit}) => {
         setNewHabit(false);
-        console.log(habit);
-        setCurHabit(habit.title);
+        setCurHabit(habit);
         sheetRef.current.snapTo(1);
     };
 
@@ -71,10 +80,10 @@ function Home({db}) {
                 <HabitView
                     sheetRef={sheetRef}
                     habit={curHabit}
+                    onDelete={deleteHabit}
                 />
             )}
         </View>
-        
     );
 
     return(
