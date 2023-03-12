@@ -7,6 +7,11 @@ import * as React from 'react';
 
 
 function HabitForm() {
+    const [title, setTitle] = React.useState('');
+    const [hours, setHours] = React.useState('');
+    const [minutes, setMinutes] = React.useState('');
+    const [frequency, setFrequency] = React.useState('');
+
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState('week');
     const [items, setItems] = React.useState([
@@ -16,66 +21,80 @@ function HabitForm() {
     ]);
     
     return(
-        <View>
-            <Text style={styles.title}>Get started on something new today: </Text>
-            <Divider style={{
-                marginTop: 20,
-                marginBottom: 20,
-            }} />
-            <TextInput
-                style={{
-                    fontSize: 22,
-                }}
-                autoCapitalize={'words'}
-                placeholder={"I'll do something epic..."}
-            />
-            <View style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    paddingTop: 10,
-                    paddingBottom: 10,
-                }}
-            >
-                <Text style={styles.title}>for </Text>
+        <View style={{
+            height: '100%',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+        }}>
+            <View>
+                <Text style={styles.title}>Get started on something new today: </Text>
+                <Divider style={{
+                    marginTop: 20,
+                    marginBottom: 20,
+                }} />
                 <TextInput
-                    style={styles.numInput}
-                    placeholder={'00'}
-                    keyboardType={'number-pad'}
-                    maxLength={2}
+                    style={{
+                        fontSize: 22,
+                    }}
+                    autoCapitalize={'words'}
+                    placeholder={"I'll do something epic..."}
+                    onChangeText={(title) => setTitle(title)}
+                    value={title}
                 />
-                <Text style={styles.title}> hours </Text>
-                <TextInput
-                    style={styles.numInput}
-                    placeholder={'00'}
-                    keyboardType={'number-pad'}
-                    maxLength={2}
-                />
-                <Text style={styles.title}> minutes per </Text>
+                <View style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        paddingTop: 10,
+                        paddingBottom: 10,
+                    }}
+                >
+                    <Text style={styles.title}>for </Text>
+                    <TextInput
+                        style={styles.numInput}
+                        placeholder={'00'}
+                        keyboardType={'number-pad'}
+                        maxLength={2}
+                        onChangeText={(hours) => setHours(hours)}
+                        value={hours}
+                    />
+                    <Text style={styles.title}> hours </Text>
+                    <TextInput
+                        style={styles.numInput}
+                        placeholder={'00'}
+                        keyboardType={'number-pad'}
+                        maxLength={2}
+                        onChangeText={(min) => setMinutes(min)}
+                        value={minutes}
+                    />
+                    <Text style={styles.title}> minutes per </Text>
+                </View>
+                <View style={{
+                        flexDirection: 'row',
+                    }}
+                >
+                    <DropDownPicker
+                        scrollViewProps={{
+                            decelerationRate: "fast"
+                        }}
+                        items={items}
+                        open={open}
+                        setOpen={setOpen}
+                        value={value}
+                        setValue={setValue}
+                        setItems={setItems}
+                        textStyle={{
+                            fontSize: 20,
+                        }}
+                        zIndex={100}
+                        onChangeValue={(value) => {alert(value)}}
+                        onSelectItem={(item) => {alert(item)}}
+                    />
+                </View>
             </View>
             <View style={{
-                    flexDirection: 'row',
-                }}
-            >
-                <DropDownPicker
-                    scrollViewProps={{
-                        decelerationRate: "fast"
-                    }}
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    textStyle={{
-                        fontSize: 20,
-                    }}
-                />
-            </View>
-            <View style={{
-                padding: 20,
-                
+                padding: 40,
             }}>
-                <Button mode="contained" onPress={() => console.log('Pressed')}>
+                <Button mode="contained" onPress={() => alert(title + ' ' + hours + ' ' + minutes)} >
                     CREATE
                 </Button>
             </View>

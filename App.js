@@ -110,6 +110,7 @@ export default function App() {
             <ScrollView style={styles.container} contentContainerStyle={{paddingBottom: 50}}>
                 {dummyHabits.map((habit) => {
                     return <HabitCard
+                        key={habit.id}
                         cardTitle={habit.title}
                         cardSubTitle={habit.time.hrs + 'hrs ' + habit.time.min + 'min per week.'}
                         onPress={openSheet}
