@@ -2,18 +2,18 @@ import { Avatar, Button, Card, Text, IconButton, ProgressBar } from 'react-nativ
 import { StyleSheet } from 'react-native';
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-const HabitCard = ({ cardTitle, cardSubTitle, onPress }) => (
+const HabitCard = ({ onPress, habit }) => (
     <Card
         style={styles.habitCard}
         elevation={0}
         onPress={() => onPress(
-            {sheetName: cardTitle}
+            {habit: habit}
         )}
     >
         <Card.Title
-            title={cardTitle}
+            title={habit.title}
             titleVariant="titleLarge"
-            subtitle={cardSubTitle}
+            subtitle={habit.hours + 'hrs ' + habit.minutes + 'min per week.'}
             right={(props) => <IconButton {...props} icon="clock" onPress={() => {}} />}
         />
         <Card.Content>

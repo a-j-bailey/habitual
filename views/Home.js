@@ -70,7 +70,7 @@ function Home({db}) {
             ) : (
                 <HabitView
                     sheetRef={sheetRef}
-                    title={curHabit}
+                    habit={curHabit}
                 />
             )}
         </View>

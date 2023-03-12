@@ -6,7 +6,7 @@ import * as React from 'react';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function HabitForm() {
+function HabitForm({saveHabit}) {
     const [title, setTitle] = React.useState('');
     const [hours, setHours] = React.useState('');
     const [minutes, setMinutes] = React.useState('');
@@ -19,15 +19,6 @@ function HabitForm() {
         {label: 'Week', value: 'week'},
         {label: 'Month', value: 'month'}
     ]);
-    
-    const saveHabit = ({
-        title,
-        hours,
-        minutes,
-        frequency
-    }) => {
-        alert(title + '\n' + hours + '\n' + minutes + '\n' + frequency);
-    };
     
     return(
         <View style={{
