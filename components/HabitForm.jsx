@@ -4,6 +4,8 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import DropDownPicker from 'react-native-dropdown-picker';
 import * as React from 'react';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 function HabitForm() {
     const [title, setTitle] = React.useState('');
     const [hours, setHours] = React.useState('');
