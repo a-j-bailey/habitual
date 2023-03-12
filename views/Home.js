@@ -1,85 +1,62 @@
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { StyleSheet, Text, View, ScrollView, Image, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 import * as React from 'react';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Header from '../components/HeaderBar';
-import HabitCard from '../components/HabitCard';
 import HabitView from '../components/HabitView';
 import HabitForm from '../components/HabitForm';
+import HabitList from './HabitList';
 
 const sheetRef = React.createRef();
 
-function Home() {
-    const dummyHabits = [
-        {
-            title: 'Biking',
-            time: {
-                hrs: 1,
-                min: 30,
-            },
-        },
-        {
-            title: 'Programming',
-            time: {
-                hrs: 5,
-                min: 0,
-            },
-        },
-        {
-            title: 'Medium Length Title',
-            time: {
-                hrs: 5,
-                min: 0,
-            },
-        },
-        {
-            title: "Super long title that's sure to break something.",
-            time: {
-                hrs: 5,
-                min: 0,
-            },
-        },
-        {
-            title: 'Drink Coffee',
-            time: {
-                hrs: 5,
-                min: 0,
-            },
-        },
-        {
-            title: 'Watch Ted Lasso',
-            time: {
-                hrs: 5,
-                min: 0,
-            },
-        },
-        {
-            title: 'Sleep',
-            time: {
-                hrs: 5,
-                min: 0,
-            },
-        },
-    ];
-    
+function useForceUpdate() {
+    const [value, setValue] = React.useState(0);
+    return [() => setValue(value + 1), value];
+}
+
+function Home({db}) {
     const [newHabit, setNewHabit] = React.useState(false);
-    const [curHabit, setCurHabit] = React.useState('');
+    const [curHabit, setCurHabit] = React.useState(null);
+    const [forceUpdate, forceUpdateId] = useForceUpdate();
     
     const createHabit = () => {
         setNewHabit(true);
         sheetRef.current.snapTo(2);
-    }
+    };
 
-    const openSheet = ({sheetName}) => {
+    const saveHabit = ({
+        title,
+        hours,
+        minutes,
+        frequency
+    }) => {
+        db.transaction(
+            (tx) => {
+                tx.executeSql("INSERT INTO habits (title, hours, minutes, frequency) values (?, ?, ?, ?)", [
+                    title,
+                    hours,
+                    minutes,
+                    frequency
+                ]);
+            },
+            null,
+            forceUpdate
+        );
+        sheetRef.current.snapTo(0);
+        forceUpdate();
+    };
+
+    const openSheet = ({habit}) => {
         setNewHabit(false);
-        setCurHabit(sheetName);
+        console.log(habit);
+        setCurHabit(habit.title);
         sheetRef.current.snapTo(1);
     };
 
-    const renderContent = () => (
+    const sheetContent = () => (
         <View style={{
             backgroundColor: '#fff',
             padding: 16,
@@ -87,7 +64,9 @@ function Home() {
           }}
         >
             { newHabit ? (
-                <HabitForm />
+                <HabitForm
+                    saveHabit={saveHabit}
+                />
             ) : (
                 <HabitView
                     sheetRef={sheetRef}
@@ -103,27 +82,24 @@ function Home() {
             <Header
                 onPress={createHabit}
             />
-            <ScrollView style={styles.container} contentContainerStyle={{paddingBottom: 50}}>
-                {dummyHabits.map((habit) => {
-                    return <HabitCard
-                        key={habit.id}
-                        cardTitle={habit.title}
-                        cardSubTitle={habit.time.hrs + 'hrs ' + habit.time.min + 'min per week.'}
-                        onPress={openSheet}
-                    />;
-                })}
-                <StatusBar style="auto" />
-            </ScrollView>
+            <Text>{forceUpdateId}</Text>
+            <HabitList
+                key={forceUpdateId}
+                onPressItem={openSheet}
+                db={db}
+            />
+            <StatusBar style="auto" />
             <BottomSheet
                 ref={sheetRef}
                 snapPoints={[0, 450, 800]}
                 borderRadius={10}
                 overdragResistanceFactor={10}
-                renderContent={renderContent}
+                renderContent={sheetContent}
             />
         </SafeAreaProvider>
     )
 };
+
 
 export default Home;
 
@@ -137,11 +113,6 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontWeight: 'bold',
         fontSize: 24,
-    },
-    container: {
-        flex: 1,
-        padding: 20,
-        backgroundColor: '#f6f6f6',
     },
     imageContainer: {
         flex: 1,
