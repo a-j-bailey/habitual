@@ -33,8 +33,6 @@ function HabitList({onPressItem, db}) {
                     return <HabitCard
                         key={habit.id}
                         habit={habit}
-                        cardTitle={habit.title}
-                        cardSubTitle={habit.hours + 'hrs ' + habit.minutes + 'min per week.'}
                         onPress={onPressItem}
                     />;
                 })
